@@ -1,4 +1,4 @@
-## EECS 738 Project 4: Reinforcement Learning by Matthew Taylor
+## EECS 738 Project 4: Reinforcement Learning
 
 ### Overview
 
@@ -12,25 +12,25 @@ Once this was accomplished, larger environments were created with walls and mult
 
 ### How to Run
 
-This project was written in Python 3.7.2 and requires modules that can be installed by navigating to the project directory and running this command:
+This project was written in Python 3.9.4 and required modules can be installed by navigating to the project directory and running this below command:
 ```
 pip3 install -r requirements.txt
 ```
-Once the dependencies are installed, learning can commence. To train an agent, an environment size must be specified. The available sizes are "small", "medium", and "large". Optionally, the presence of enemies in each environment can be toggled by adding "enemies" to the command. Each of the environments can used by issuing a command of this format:
+Once the dependencies are installed, learning can start. To train an agent, an environment size must be specified. The available sizes are "small", "medium", and "large". Optionally, the presence of enemies in each environment can be toggled by adding "enemies" to the command. Each of the environments can used by issuing a command of this format:
 ```
-python3 main.py <size> [enemies]
+python main.py <size> [enemies]
 ```
 
 **Examples:**
 
 To run the small environment with no enemies:
 ```
-python3 main.py small
+python main.py small
 ```
 
 To run the medium environment with enemies:
 ```
-python3 main.py medium enemies
+python main.py medium enemies
 ```
 
 **Note: It takes a very long time to train on the large environment without enemies. This has already been done and the results are shown below**
@@ -53,25 +53,7 @@ With no enemies or obstacles, the agent maximizes its reward by heading directly
 
 To avoid the moderate penalty of fighting, the agent circumvents the enemies to collect the treasures. In this basic example, the agent essentially treats the enemies as walls. The penalty for attacking the enemies is much higher than the penalty for the few steps it takes to avoid them.
 
-**Medium environment with no enemies:**
-
-![](https://i.imgur.com/4yl0sSF.gif)
-
-This is the first environment that introduces walls. The agent is totally incapable of moving through a wall, so it's forced to move around each of them to collect all three treasures.
-
-![](https://i.imgur.com/cWWKE2A.png)
-
-This plot clearly shows the effect Q-learning has on the agent's behavior. Initially the number of time steps (or moves) required to collect all three treasures in this map was above 350! At this time, the agent was essentially making random movements and recording how each movement rewarded it. After only about 50 episodes, the agent seems to have found a rather good path for collecting each of the treasures in this environment. The slightly stochastic trend seen beyond episode 50 is due to the occasional exploration of the environment's solution space. Even though the agent already has some notion of what path gives success, it tries a new path in hopes that it will uncover an even better path. For more information, look into the [exploration-exploitation tradeoff](https://en.wikipedia.org/wiki/Multi-armed_bandit).
-
-**Medium environment with enemies:**
-
-![](https://i.imgur.com/fnaJBJy.gif)
-
-This is the first example of the agent choosing to attack an enemy. There are two key differences to note between the agent's behavior in this environment and in the previous environment. First, the agent collects all of the treasures it can that don't require attacking the enemy. This illustrates Q-learning's notion of the short-term reward. The agent would rather do the hardest part last, in a sense. Second, it's worth noting that in this case, the agent only attacks the enemy because there are no alternate routes.
-
-![](https://i.imgur.com/BXo68q9.png)
-
-Admittedly, this plot has a rather unusual, but explainable shape. Like the previous plot, this one begins with a rather high number of time steps per episode, since again, the model doesn't know the best way to collect all treasures. However, around episode 25, the agent goes on a streak of exploration which at first doesn't yield spectacular results. But then, at around episode 35, the repeated exploration allows the agent to exploit a highly efficient, and arguably best, path.
+**Note: I am not including the medium mazes over here , but these simulations/animations can be found <a href='./animations/medium.gif'>here</a> and <a href='./animations/medium_enemies.gif'>here</a>** 
 
 **Large environment with no enemies:**
 
@@ -95,4 +77,4 @@ This plot converged faster than any other environment. This is simply because th
 
 ### Optimizations and Future Work
 
-Given more time to work on this project, I would have implemented multiple reinforcement learning algorithms and compared the results. Perhaps one algorithm would have found the best solution faster than all others for this application. A substantial piece of future work would be making the enemies move or chase the agent. Because I had Pac Man in mind when doing this project, an attempt at implementing this feature was made, but with the current policy/architecture, the state space grew exponentially. Training a model in an environment with moving enemies soon became infeasible due to the incredible number of possible states. Further improvements could also be made to the current Q-learning implementation to reduce total execution time, such as hyperparameter tuning or general architecture redesign. Also, the dimensionality of the environments can be expanded to three or more. As is, the algorithm should be able to support this with minimal changes. However, visualizing the behavior of the agent in these environments will likely become an issue.
+I think future would work be implementing multiple reinforcement learning algorithms and compare the results. Perhaps one algorithm would have found the best solution faster than all others for this application. Another piece of future work would be making the enemies move or chase the agent.Also, Training a model in an environment with moving enemies soon becomes infeasible due to the incredible number of possible states. Further improvements could also be made to the current Q-learning implementation to reduce total execution time, such as hyperparameter tuning or general architecture redesign. Also, the dimensionality of the environments can be expanded. As it stands, the algorithm should be able to support this with minimal changes.
